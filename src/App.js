@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./App.css"; // Import our CSS
 
 function App() {
   const [city, setCity] = useState("");
@@ -19,35 +20,32 @@ function App() {
   };
 
   return (
-    <div className="p-6 text-center">
-      <h1 className="text-2xl font-bold mb-4">Weather App</h1>
+    <div className="app-container">
+      <div className="weather-card">
+        <h1 className="title">🌤 Weather App</h1>
 
-      <input
-        className="border p-2 m-2"
-        type="text"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-        placeholder="Enter city"
-      />
-
-      <button
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-        onClick={fetchWeather}
-      >
-        Get Weather
-      </button>
-
-      {weather && weather.main && (
-        <div className="mt-4">
-          <h2 className="text-xl">{weather.name}</h2>
-          <p>{weather.weather[0].description}</p>
-          <p className="font-bold">{weather.main.temp} °C</p>
+        <div className="input-group">
+          <input
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            placeholder="Enter city"
+          />
+          <button onClick={fetchWeather}>Get Weather</button>
         </div>
-      )}
 
-      {weather && weather.error && (
-        <p className="text-red-500 mt-4">{weather.error}</p>
-      )}
+        {weather && weather.main && (
+          <div className="weather-info">
+            <h2>{weather.name}</h2>
+            <p>{weather.weather[0].description}</p>
+            <p className="temp">{weather.main.temp}°C</p>
+          </div>
+        )}
+
+        {weather && weather.error && (
+          <p className="error">{weather.error}</p>
+        )}
+      </div>
     </div>
   );
 }
