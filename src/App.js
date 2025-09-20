@@ -1,14 +1,17 @@
 import { useState } from "react";
-import "./App.css";
+import "./App.css"; // Import our CSS
 
 function App() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
 
+  const API_URL =
+    "https://demo-weather-backend-1023393735816.us-central1.run.app";
+
   const fetchWeather = async () => {
     if (!city) return;
     try {
-      const response = await fetch(`/api/weather?city=${city}`);
+      const response = await fetch(`${API_URL}/weather?city=${city}`);
       const data = await response.json();
       setWeather(data);
     } catch (err) {
@@ -20,6 +23,7 @@ function App() {
     <div className="app-container">
       <div className="weather-card">
         <h1 className="title">🌤 Weather App</h1>
+
         <div className="input-group">
           <input
             type="text"
