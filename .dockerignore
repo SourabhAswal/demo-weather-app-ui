@@ -1,0 +1,11 @@
+node_modules
+build
+.git
+.gitignore
+Dockerfile
+cloudbuild.yaml
+nginx.conf
+!server.js
+!package.json
+!src
+!public
