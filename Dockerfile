@@ -11,7 +11,7 @@ FROM node:18
 WORKDIR /app
 COPY --from=build /app/build ./build
 COPY server.js .
-COPY package.json package-lock.json ./
+COPY package.json  ./
 RUN npm install --only=production
 EXPOSE 8080
 CMD ["node", "server.js"]
