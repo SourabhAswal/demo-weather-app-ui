@@ -1,6 +1,7 @@
-import express from "express";
-import path from "path";
-import fetch from "node-fetch";
+// server.js (CommonJS version)
+const express = require("express");
+const path = require("path");
+const fetch = require("node-fetch");
 
 const app = express();
 const __dirname = path.resolve();
@@ -17,21 +18,23 @@ app.get("/api/weather", async (req, res) => {
     // Forward request to backend
     const response = await fetch(backendUrl, {
       headers: {
-        "Authorization": `Bearer ${process.env.BACKEND_IDENTITY_TOKEN || ""}`
-      }
+        Authorization: `Bearer ${process.env.BACKEND_IDENTITY_TOKEN || ""}`,
+      },
     });
     const data = await response.json();
     res.json(data);
   } catch (err) {
-    console.error("Error calling backend:", err);
+    console.error("❌ Error calling backend:", err);
     res.status(500).json({ error: "Backend call failed" });
   }
 });
 
-// Fallback to React app
+// Fallback to React app (SPA routing)
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => console.log(`Frontend running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`✅ Frontend running on port ${PORT}`);
+});
